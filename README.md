@@ -1,4 +1,4 @@
-# Battleship Game - Inspired by One Piece
+# Battleship Game - Inspirado en One Piece
 
 Este proyecto es un juego de **Batalla Naval** inspirado en el universo de **One Piece**, desarrollado utilizando **React**, **CSS**, y otras herramientas modernas. El juego permite a los jugadores enfrentarse a un oponente controlado por la computadora en una versión personalizada de este clásico juego de estrategia.
 
