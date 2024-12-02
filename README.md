@@ -40,19 +40,19 @@ npm run dev
 ## Estructura del proyecto
 
 src/
-├── components/       # Componentes reutilizables
+├── components/      
 │   ├── GameBoard.jsx
 │   ├── FinalModal.jsx
 │   ├── Modal.jsx
 │   ├── PlayUserBoard.jsx
 │   └── VictoryScreen.jsx
-├── Context/          # Gestión del estado global
+├── Context/         
 │   └── GameContext.jsx
-├── data/             # Datos de barcos (opcional)
-├── image/            # Recursos visuales
-├── style/            # Archivos CSS
-├── App.jsx           # Componente principal
-└── main.jsx          # Punto de entrada
+├── data/             
+├── image/           
+├── style/          
+├── App.jsx          
+└── main.jsx       
 
 
 ## Cómo jugar
