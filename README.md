@@ -1,3 +1,5 @@
+Este proyecto se encuentra en Vercel **Vercel** [Revisar aquí](https://battleship-wine.vercel.app/)
+
 # Battleship Game - Inspirado en One Piece
 
 Este proyecto es un juego de **Batalla Naval** inspirado en el universo de **One Piece**, desarrollado utilizando **React**, **CSS**, y otras herramientas modernas. El juego permite a los jugadores enfrentarse a un oponente controlado por la computadora en una versión personalizada de este clásico juego de estrategia.
@@ -40,34 +42,34 @@ npm run dev
 ## Estructura del proyecto
 
 src/
-── assets/
-   └── react.svg
-── components/
-   ├── FinalModal.jsx
-   ├── GameBoard.jsx
-   ├── modal.jsx
-   ├── PlayUserBoard.jsx
-   └── victoryScreen.jsx
-── Context/
-   └── GameContext.jsx
-── image/
-   ├── BigMomAvatar.webp
-   ├── KidAvatar.jpg
-   ├── kidShip.png
-   ├── luffyAvatar.jpg
-   ├── luffyShip.png
-   ├── mamaShip.png
-   ├── marineShip.png
-   ├── ShanksAvatar.jpg
-   └── shanksShip.png
-── style/
-   ├── app.css
-   ├── board.css
-   ├── finalModal.css
-   └── modal.css
-── App.jsx
-── data.js
-── main.jsx
+├── assets/
+│   └── react.svg
+├── components/
+│   ├── FinalModal.jsx
+│   ├── GameBoard.jsx
+│   ├── modal.jsx
+│   ├── PlayUserBoard.jsx
+│   └── victoryScreen.jsx
+├── Context/
+│   └── GameContext.jsx
+├── image/
+│   ├── BigMomAvatar.webp
+│   ├── KidAvatar.jpg
+│   ├── kidShip.png
+│   ├── luffyAvatar.jpg
+│   ├── luffyShip.png
+│   ├── mamaShip.png
+│   ├── marineShip.png
+│   ├── ShanksAvatar.jpg
+│   └── shanksShip.png
+├── style/
+│   ├── app.css
+│   ├── board.css
+│   ├── finalModal.css
+│   └── modal.css
+├── App.jsx
+├── data.js
+└── main.jsx
 
 ## Cómo jugar
 1. Coloca tus barcos: Arrastra los barcos de cada uno de los avatar y colócalos en tu tablero. Puedes alternar entre orientación horizontal y vertical.
