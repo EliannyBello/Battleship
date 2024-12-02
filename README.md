@@ -61,10 +61,10 @@ src/
 │   ├── ShanksAvatar.jpg
 │   └── shanksShip.png
 ├── style/
+│   ├── app.css
 │   ├── board.css
 │   ├── finalModal.css
-│   ├── modal.css
-│   └── style.css
+│   └── modal.css
 ├── App.jsx
 ├── data.js
 └── main.jsx
