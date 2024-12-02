@@ -1,7 +1,7 @@
 import React, { createContext, useState, useEffect } from "react";
 import { userShips as userShipsData } from "../data";
 import { computerShips as computerShipsData } from "../data";
-import Modal from "../components/modal";
+
 
 export const GameContext = createContext();
 

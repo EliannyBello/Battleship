@@ -40,20 +40,34 @@ npm run dev
 ## Estructura del proyecto
 
 src/
-├── components/      
-│   ├── GameBoard.jsx
+├── assets/
+│   └── react.svg
+├── components/
 │   ├── FinalModal.jsx
-│   ├── Modal.jsx
+│   ├── GameBoard.jsx
+│   ├── modal.jsx
 │   ├── PlayUserBoard.jsx
-│   └── VictoryScreen.jsx
-├── Context/         
+│   └── victoryScreen.jsx
+├── Context/
 │   └── GameContext.jsx
-├── data/             
-├── image/           
-├── style/          
-├── App.jsx          
-└── main.jsx       
-
+├── image/
+│   ├── BigMomAvatar.webp
+│   ├── KidAvatar.jpg
+│   ├── kidShip.png
+│   ├── luffyAvatar.jpg
+│   ├── luffyShip.png
+│   ├── mamaShip.png
+│   ├── marineShip.png
+│   ├── ShanksAvatar.jpg
+│   └── shanksShip.png
+├── style/
+│   ├── board.css
+│   ├── finalModal.css
+│   ├── modal.css
+│   └── style.css
+├── App.jsx
+├── data.js
+└── main.jsx
 
 ## Cómo jugar
 1. Coloca tus barcos: Arrastra los barcos de cada uno de los avatar y colócalos en tu tablero. Puedes alternar entre orientación horizontal y vertical.

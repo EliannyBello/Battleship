@@ -1,4 +1,4 @@
-/* Modal Styles */
+
 .modal {
     position: fixed;
     top: 50%;
@@ -9,15 +9,21 @@
     border-radius: 8px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
     z-index: 1000;
+    position: absolute;
+    margin-top: 50px;
+    margin-bottom: 50px;
+   
   }
   
   .modal-content {
     text-align: center;
+
   }
   
   .modal-content h2 {
     color: #333;
     margin-bottom: 20px;
+    
   }
   
   .modal-content .ships-container {

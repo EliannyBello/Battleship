@@ -20,53 +20,26 @@ function GameBoard({ title, type }) {
   };
 
   return (
-    <div>
-      <h2>{title}</h2>
-      {winner && <h3>{`${winner} ha ganado el juego!`}</h3>}
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(10, 30px)",
-          gap: "2px",
-        }}
-      >
-        {board.map((row, rowIndex) =>
-          row.map((cell, colIndex) => (
-            <div
-              key={`${rowIndex}-${colIndex}`}
-              onClick={() => handleClick(rowIndex, colIndex)}
-              style={{
-                width: "30px",
-                height: "30px",
-                position: "relative",
-                border: "1px solid black",
-                backgroundColor:
-                  cell && cell.hit
-                    ? "red" 
-                    : cell && cell.miss
-                    ? "blue"  
-                    : "white",
-              }}
-            >
-              {cell && cell.img && type === "user" && (
-                <img
-                  src={cell.img}
-                  alt={cell.ship}
-                  style={{
-                    position: "absolute",
-                    width: "30px",
-                    height: "30px",
-                    top: 0,
-                    left: 0,
-                    objectFit: "contain",
-                  }}
-                />
-              )}
-            </div>
-          ))
-        )}
-      </div>
+    <div className="board">
+      {board.map((row, rowIndex) =>
+        row.map((cell, colIndex) => (
+          <div
+            key={`${rowIndex}-${colIndex}`}
+            className={`board-cell ${cell?.hit ? 'hit' : ''} ${cell?.miss ? 'miss' : ''}`}
+            onClick={() => handleClick(rowIndex, colIndex)}
+          >
+            {cell?.img && type === "user" && (
+              <img
+                src={cell.img}
+                alt={cell.ship}
+                style={{ width: "100%", height: "100%", objectFit: "contain" }}
+              />
+            )}
+          </div>
+        ))
+      )}
     </div>
+
   );
 }
 

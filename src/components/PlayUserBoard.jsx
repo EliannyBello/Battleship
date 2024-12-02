@@ -19,7 +19,7 @@ const shipsConfig = [
 ];
 
 function PlayUserBoard() {
-  const { isModalOpen, handleUserShipsPlacement, userBoard,setUserBoard} = useContext(GameContext);
+  const { isModalOpen, handleUserShipsPlacement, userBoard, setUserBoard } = useContext(GameContext);
 
 
   const [selectedShip, setSelectedShip] = useState(null);
@@ -91,79 +91,44 @@ function PlayUserBoard() {
     <div className="modal">
       <div className="modal-content">
         <h2>Coloca tus barcos</h2>
-
-        <div style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
+        <div className="ships-container">
           {shipsConfig.map((ship) => (
-            <div key={ship.name}>
+            <div key={ship.name} className="ship-info">
               <img
                 src={ship.avatar}
                 alt={`${ship.name} Avatar`}
-                style={{
-                  width: "50px",
-                  height: "50px",
-                  borderRadius: "50%",
-                  border: selectedShip === ship ? "2px solid blue" : "1px solid gray",
-                }}
+                className={`ship ${selectedShip === ship ? "selected" : ""}`}
                 draggable
                 onDragStart={() => handleDragStart(ship)}
               />
-              <p style={{ textAlign: "center", fontSize: "12px" }}>{ship.name}</p>
+              <h4 className="ship-name">{ship.name}</h4>
+              <p className="ship-size">Casillas:{ship.size}</p>
             </div>
           ))}
         </div>
-
-       
         <button onClick={() => setIsHorizontal(!isHorizontal)}>
           Cambiar a {isHorizontal ? "Vertical" : "Horizontal"}
         </button>
-
-     
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: `repeat(${BOARD_SIZE}, 30px)`,
-            gap: "2px",
-            marginTop: "20px",
-          }}
-        >
+        <div className="board">
           {userBoard.map((row, rowIndex) =>
             row.map((cell, colIndex) => (
               <div
                 key={`${rowIndex}-${colIndex}`}
-                style={{
-                  width: "30px",
-                  height: "30px",
-                  position: "relative",
-                  border: "1px solid black",
-                  backgroundColor: cell ? "#d9edf7" : "white",
-                }}
+                className={`board-cell ${cell ? "occupied" : ""}`}
                 onDragOver={(e) => e.preventDefault()}
                 onDrop={() => handleDrop(rowIndex, colIndex)}
               >
-                {cell && (
-                  <img
-                    src={cell.img}
-                    alt={cell.ship}
-                    style={{
-                      position: "absolute",
-                      width: "30px",
-                      height: "30px",
-                      top: 0,
-                      left: 0,
-                    }}
-                  />
+                {cell?.img && (
+                  <img src={cell.img} alt={cell.ship} style={{ width: "100%", height: "100%" }} />
                 )}
               </div>
             ))
           )}
         </div>
-
- 
-        <button onClick={handlePlaceShips} style={{ marginTop: "20px" }}>
-          Comenzar
-        </button>
+        <button onClick={handlePlaceShips}>Comenzar</button>
       </div>
     </div>
+
   );
 }
 
