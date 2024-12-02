@@ -1,6 +1,7 @@
 import React, { createContext, useState, useEffect } from "react";
 import { userShips as userShipsData } from "../data";
 import { computerShips as computerShipsData } from "../data";
+import Modal from "../components/modal";
 
 export const GameContext = createContext();
 
@@ -117,6 +118,7 @@ export const GameProvider = ({ children }) => {
     if (!winner) {
       const board = [...userBoard];
       let row, col;
+  
       if (pendingAttacks.length > 0) {
         const nextAttack = pendingAttacks.shift();
         ({ r: row, c: col } = nextAttack);
@@ -130,18 +132,28 @@ export const GameProvider = ({ children }) => {
           }
         }
       }
-
+  
       if (board[row][col] && board[row][col].ship) {
+        const shipName = board[row][col].ship;
         board[row][col] = { ...board[row][col], hit: true };
-
         setComputerHits((prev) => [...prev, { row, col }]);
-        setUserShips((prev) => {
-          const newShipsLeft = prev - 1;
-          checkWinCondition(newShipsLeft, "Computador");
-          return newShipsLeft;
-        });
-        const adjacent = getAdjacentCells(row, col);
-        const validAdjacents = adjacent.filter(
+        setUserShipStatus((prevStatus) =>
+          prevStatus.map((ship) =>
+            ship.name === shipName
+              ? {
+                  ...ship,
+                  hits: ship.hits + 1,
+                  sunk: ship.hits + 1 === ship.size,
+                }
+              : ship
+          )
+        );
+  
+        if (userShipStatus.some(ship => ship.name === shipName && ship.hits + 1 === ship.size)) {
+          setUserShips((prev) => prev - userShipStatus.find(ship => ship.name === shipName).size);
+        }
+  
+        const validAdjacents = getAdjacentCells(row, col).filter(
           ({ r, c }) =>
             r >= 0 &&
             c >= 0 &&
@@ -153,13 +165,14 @@ export const GameProvider = ({ children }) => {
       } else {
         board[row][col] = { miss: true };
       }
-
+  
       setUserBoard(board);
       if (!winner) {
         setTurn("user");
       }
     }
   };
+  
 
 
   const getAdjacentCells = (row, col) => [
@@ -240,16 +253,51 @@ export const GameProvider = ({ children }) => {
 
 
   const resetGame = () => {
+    // Resetea el estado del tablero del usuario y la computadora
     setUserBoard(initialBoard());
     setComputerBoard(initialBoard());
-    setUserShips(4);
-    setComputerShipsLeft(4);
+    
+    // Resetea el estado de los barcos del usuario y la computadora
+    setUserShips(userShipsData.reduce((sum, ship) => sum + ship.size, 0));
+    setComputerShipsLeft(computerShipsData.reduce((sum, ship) => sum + ship.size, 0));
+  
+    // Resetea el estado de los impactos
     setUserHits([]);
     setComputerHits([]);
     setPendingAttacks([]);
+  
+    // Resetea el estado de los barcos
+    setUserShipStatus(
+      userShipsData.map((ship) => ({
+        name: ship.name,
+        size: ship.size,
+        hits: 0,
+        placed: false,
+        sunk: false,
+      }))
+    );
+    setComputerShipStatus(
+      computerShipsData.map((ship) => ({
+        name: ship.name,
+        size: ship.size,
+        hits: 0,
+        placed: false,
+        sunk: false,
+      }))
+    );
+  
+    // Resetea el turno y el ganador
+    setTurn("user");
     setWinner(null);
+  
+    // Abre el modal para permitir la colocación de los barcos nuevamente
     setIsModalOpen(true);
+  
+    // Coloca los barcos del computador nuevamente
+    placeComputerShips();
   };
+  
+  
 
   return (
     <GameContext.Provider

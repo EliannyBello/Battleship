@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { GameContext } from "../Context/GameContext";
 
+
 function GameBoard({ title, type }) {
   const {
     userBoard,

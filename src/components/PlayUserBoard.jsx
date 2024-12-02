@@ -9,7 +9,7 @@ import KidAvatar from '../image/KidAvatar.jpg';
 import LuffyAvatar from '../image/luffyAvatar.jpg';
 import ShanksAvatar from '../image/ShanksAvatar.jpg';
 
-const BOARD_SIZE = 10;
+const BOARD_SIZE = 10
 
 const shipsConfig = [
   { name: "Luffy", size: 3, img: luffyShip, avatar: LuffyAvatar },
@@ -19,13 +19,9 @@ const shipsConfig = [
 ];
 
 function PlayUserBoard() {
-  const { isModalOpen, handleUserShipsPlacement } = useContext(GameContext);
+  const { isModalOpen, handleUserShipsPlacement, userBoard,setUserBoard} = useContext(GameContext);
 
-  const [userBoard, setUserBoard] = useState(
-    Array(BOARD_SIZE)
-      .fill(null)
-      .map(() => Array(BOARD_SIZE).fill(null))
-  );
+
   const [selectedShip, setSelectedShip] = useState(null);
   const [isHorizontal, setIsHorizontal] = useState(true);
 
