@@ -1,4 +1,4 @@
-Este proyecto se encuentra en Vercel **Vercel** [Revisar aquí](https://battleship-wine.vercel.app/)
+Este proyecto se encuentra en **Vercel** [Revisar aquí](https://battleship-wine.vercel.app/)
 
 # Battleship Game - Inspirado en One Piece
 
