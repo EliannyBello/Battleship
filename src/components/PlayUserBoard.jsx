@@ -76,7 +76,6 @@ function PlayUserBoard() {
   };
 
   const handlePlaceShips = () => {
-    // Extraer los nombres únicos de los barcos colocados
     const placedShips = new Set(
       userBoard.flat().filter((cell) => cell && cell.ship).map((cell) => cell.ship)
     );
@@ -87,17 +86,16 @@ function PlayUserBoard() {
       alert("Asegúrate de colocar todos los barcos antes de comenzar.");
       return;
     }
-
-    // Pasar el tablero al contexto si todo está listo
     handleUserShipsPlacement(userBoard);
   };
+
+
 
   return (
     <div className="modal">
       <div className="modal-content">
         <h2>Coloca tus barcos</h2>
 
-        {/* Barcos disponibles */}
         <div style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
           {shipsConfig.map((ship) => (
             <div key={ship.name}>
@@ -118,12 +116,12 @@ function PlayUserBoard() {
           ))}
         </div>
 
-        {/* Botón de orientación */}
+       
         <button onClick={() => setIsHorizontal(!isHorizontal)}>
           Cambiar a {isHorizontal ? "Vertical" : "Horizontal"}
         </button>
 
-        {/* Tablero */}
+     
         <div
           style={{
             display: "grid",

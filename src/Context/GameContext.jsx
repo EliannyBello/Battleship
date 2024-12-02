@@ -44,7 +44,6 @@ export const GameProvider = ({ children }) => {
 
   useEffect(() => {
     placeComputerShips();
-    console.log("Tablero del computador:", computerBoard);
   }, []);
 
   useEffect(() => {
@@ -59,10 +58,7 @@ export const GameProvider = ({ children }) => {
     }
   }, [userShips]);
 
-  useEffect(() => {
-    console.log("Estado actualizado del tablero del computador:", computerBoard);
-    console.log("Estado de los barcos del computador:", computerShipStatus);
-  }, [computerBoard, computerShipStatus]);
+
 
   const checkWinCondition = (remainingShips, player) => {
     if (remainingShips === 0 && !winner) {
@@ -72,56 +68,59 @@ export const GameProvider = ({ children }) => {
     }
   };
 
+
   const handleAttack = (row, col) => {
     if (turn === "user" && !winner) {
       const board = [...computerBoard];
-  
+
       if (board[row][col] && board[row][col].ship) {
         const shipName = board[row][col].ship;
-  
-        // Marca la celda como golpeada
+
+        
         board[row][col] = { ...board[row][col], hit: true };
         setUserHits((prev) => [...prev, { row, col }]);
-  
-        // Actualiza el estado del barco golpeado
+
+       
         setComputerShipStatus((prevStatus) => {
           const updatedStatus = prevStatus.map((s) =>
             s.name === shipName ? { ...s, hits: s.hits + 1 } : s
           );
-  
+
           const currentShip = updatedStatus.find((s) => s.name === shipName);
-          if (currentShip && currentShip.hits === currentShip.size) {
-            setComputerShipsLeft((prev) => prev - 1);
-          
+          if (currentShip && currentShip.hits === currentShip.size && !currentShip.sunk) {
+            setComputerShipsLeft((prev) => prev - currentShip.size);
+            
+            return updatedStatus.map((s) =>
+              s.name === shipName ? { ...s, sunk: true } : s
+            );
           }
-  
+
           return updatedStatus;
         });
       } else if (!board[row][col]) {
-        // Marca la celda como fallida
         board[row][col] = { miss: true };
       }
-  
+
       setComputerBoard(board);
-  
-      // Cambia el turno al computador si no hay ganador
+
+      
       if (!winner) {
         setTurn("computer");
         setTimeout(computerAttack, 500);
       }
     }
   };
+
+
+
   const computerAttack = () => {
     if (!winner) {
       const board = [...userBoard];
       let row, col;
-  
-      // Si hay ataques pendientes, selecciona el siguiente
       if (pendingAttacks.length > 0) {
         const nextAttack = pendingAttacks.shift();
         ({ r: row, c: col } = nextAttack);
       } else {
-        // Selecciona una celda al azar que no haya sido atacada
         let valid = false;
         while (!valid) {
           row = Math.floor(Math.random() * 10);
@@ -131,21 +130,16 @@ export const GameProvider = ({ children }) => {
           }
         }
       }
-  
+
       if (board[row][col] && board[row][col].ship) {
-        // Marca la celda como golpeada
         board[row][col] = { ...board[row][col], hit: true };
-  
+
         setComputerHits((prev) => [...prev, { row, col }]);
-  
-        // Reduce el número de barcos restantes del usuario
         setUserShips((prev) => {
           const newShipsLeft = prev - 1;
           checkWinCondition(newShipsLeft, "Computador");
           return newShipsLeft;
         });
-  
-        // Agrega celdas adyacentes para futuros ataques
         const adjacent = getAdjacentCells(row, col);
         const validAdjacents = adjacent.filter(
           ({ r, c }) =>
@@ -157,19 +151,16 @@ export const GameProvider = ({ children }) => {
         );
         setPendingAttacks((prev) => [...prev, ...validAdjacents]);
       } else {
-        // Marca la celda como fallida
         board[row][col] = { miss: true };
       }
-  
+
       setUserBoard(board);
-  
-      // Cambia el turno al usuario si no hay ganador
       if (!winner) {
         setTurn("user");
       }
     }
   };
-    
+
 
   const getAdjacentCells = (row, col) => [
     { r: row - 1, c: col },
@@ -178,6 +169,7 @@ export const GameProvider = ({ children }) => {
     { r: row, c: col + 1 },
   ];
 
+  
   const handleUserShipsPlacement = (updatedBoard) => {
     const placedShips = new Set(
       updatedBoard.flat().filter((cell) => cell && cell.ship).map((cell) => cell.ship)
@@ -192,10 +184,12 @@ export const GameProvider = ({ children }) => {
     setIsModalOpen(false);
   };
 
+
+
   const placeComputerShips = () => {
     const board = initialBoard();
 
-    const updatedShipStatus = [...computerShipStatus]; // Copia para actualizar
+    const updatedShipStatus = [...computerShipStatus]; 
 
     computerShipsData.forEach((ship, index) => {
       let placed = false;
@@ -217,32 +211,33 @@ export const GameProvider = ({ children }) => {
       }
     });
 
-    setComputerBoard([...board]); // Actualiza el tablero
-    setComputerShipStatus(updatedShipStatus); // Actualiza el estado de los barcos
+    setComputerBoard([...board]);
+    setComputerShipStatus(updatedShipStatus); 
   };
 
+
   const placeShipOnBoard = (board, row, col, size, horizontal, shipName) => {
-    // Verifica que el barco cabe en la posición seleccionada
+    
     for (let i = 0; i < size; i++) {
       const r = horizontal ? row : row + i;
       const c = horizontal ? col + i : col;
-  
+
       if (r >= 10 || c >= 10 || board[r][c] !== null) {
 
         return false;
       }
     }
-  
-    // Coloca el barco en el tablero
+
+   
     for (let i = 0; i < size; i++) {
       const r = horizontal ? row : row + i;
       const c = horizontal ? col + i : col;
-      board[r][c] = { ship: shipName, hit: false};
+      board[r][c] = { ship: shipName, hit: false };
     }
-  
+
     return true;
   };
-  
+
 
   const resetGame = () => {
     setUserBoard(initialBoard());

@@ -41,9 +41,9 @@ function GameBoard({ title, type }) {
                 border: "1px solid black",
                 backgroundColor:
                   cell && cell.hit
-                    ? "red"  // Cambia a rojo si está en estado 'hit'
+                    ? "red" 
                     : cell && cell.miss
-                    ? "blue"  // Cambia a azul si está en estado 'miss'
+                    ? "blue"  
                     : "white",
               }}
             >
