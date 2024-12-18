@@ -1,6 +1,7 @@
 import React, { createContext, useState, useEffect } from "react";
 import { userShips as userShipsData } from "../data";
 import { computerShips as computerShipsData } from "../data";
+import Swal from 'sweetalert2'
 
 
 export const GameContext = createContext();
@@ -65,14 +66,24 @@ export const GameProvider = ({ children }) => {
     if (remainingShips === 0 && !winner) {
       setWinner(player);
       setTurn(null);
-      alert(`${player} ha ganado el juego!`);
     }
   };
 
 
+  //logica de ataque del usuario
+
   const handleAttack = (row, col) => {
     if (turn === "user" && !winner) {
       const board = [...computerBoard];
+
+      if (board[row][col]?.hit || board[row][col]?.miss) {
+        Swal.fire({
+          title: "Ya atacaste esta celda, elige",
+          icon: "error",
+          draggable: true
+        });
+        return; 
+      }
 
       if (board[row][col] && board[row][col].ship) {
         const shipName = board[row][col].ship;
@@ -189,7 +200,7 @@ export const GameProvider = ({ children }) => {
     );
 
     if (placedShips.size !== 4) {
-      alert("Debes colocar exactamente 4 barcos.");
+      
       return;
     }
 

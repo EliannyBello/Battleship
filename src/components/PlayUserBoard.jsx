@@ -8,6 +8,7 @@ import BigMomAvatar from '../image/BigMomAvatar.webp';
 import KidAvatar from '../image/KidAvatar.jpg';
 import LuffyAvatar from '../image/luffyAvatar.jpg';
 import ShanksAvatar from '../image/ShanksAvatar.jpg';
+import Swal from 'sweetalert2'
 
 const BOARD_SIZE = 10
 
@@ -41,7 +42,11 @@ function PlayUserBoard() {
       setUserBoard(newBoard);
       setSelectedShip(null);
     } else {
-      alert("No puedes colocar el barco aquí.");
+      Swal.fire({
+        title: "Ya existe un barco aquí",
+        icon: "error",
+        draggable: true
+      });
     }
   };
 
@@ -79,10 +84,25 @@ function PlayUserBoard() {
     const allShipsPlaced = shipsConfig.every((ship) => placedShips.has(ship.name));
 
     if (!allShipsPlaced) {
-      alert("Asegúrate de colocar todos los barcos antes de comenzar.");
-      return;
+      Swal.fire({
+        title: "Asegurate de colocar todos tus barcos",
+        icon: "error",
+        draggable: true
+      });
+      return
+
+      
+    } else {
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "¡Que comience la batalla!",
+        showConfirmButton: false,
+        timer: 1500
+      });
+      handleUserShipsPlacement(userBoard);
     }
-    handleUserShipsPlacement(userBoard);
+
   };
 
 
