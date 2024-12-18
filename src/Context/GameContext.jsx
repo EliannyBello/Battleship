@@ -50,13 +50,13 @@ export const GameProvider = ({ children }) => {
 
   useEffect(() => {
     if (computerShipsLeft === 0) {
-      setWinner("Jugador");
+      setWinner("Piratas");
     }
   }, [computerShipsLeft]);
 
   useEffect(() => {
     if (userShips === 0) {
-      setWinner("Computador");
+      setWinner("La Marina");
     }
   }, [userShips]);
 
@@ -78,7 +78,7 @@ export const GameProvider = ({ children }) => {
 
       if (board[row][col]?.hit || board[row][col]?.miss) {
         Swal.fire({
-          title: "Ya atacaste esta celda, elige",
+          title: "Ya atacaste esta celda, elige otra",
           icon: "error",
           draggable: true
         });

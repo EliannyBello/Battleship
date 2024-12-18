@@ -17,12 +17,14 @@
   
   .modal-content {
     text-align: center;
+  
 
   }
   
   .modal-content h2 {
-    color: #333;
-    margin-bottom: 20px;
+    color: rgb(32, 20, 139);
+    /* margin-bottom: 20px; */
+    font-family: 'Press Start 2P';
     
   }
   
@@ -46,6 +48,7 @@
   .modal-content p {
     text-align: center;
     font-size: 12px;
+    
   }
   
   .modal-content button {
