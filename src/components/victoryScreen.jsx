@@ -8,7 +8,7 @@ function VictoryScreen() {
 
   return (
     <div className="finalmodal">
-      <h2>{winner}ganó el juego</h2>
+      <h2>{winner} ganó el juego</h2>
       <button onClick={resetGame}>Reiniciar</button>
     </div>
   );
